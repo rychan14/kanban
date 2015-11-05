@@ -2,7 +2,6 @@ var gulp = require('gulp');
 var browserify = require('browserify');
 var babelify = require('babelify');
 var source = require('vinyl-source-stream');
-var sass = require('gulp-sass');
 var copy = require('gulp-copy');
 var webserver =  require('gulp-webserver');
 
@@ -24,16 +23,6 @@ gulp.task('babel', function() {
         .pipe(gulp.dest('build'));
 });
 
-gulp.task('sass', function() {
-    gulp.src('src/sass/*.scss')
-        .pipe(sass({
-            outputStyle: 'compressed',
-            file: 'kanban.scss'
-        })
-        .on('error', sass.logError))
-        .pipe(gulp.dest('build'));
-});
-
 gulp.task('watch', function() {
     gulp.watch('src/index.html', ['copy']);
     gulp.watch('src/scripts/**/*.jsx', ['babel']);
@@ -49,4 +38,4 @@ gulp.task('server', function() {
     }));
 });
 
-gulp.task('default', ['copy', 'babel', 'sass', 'watch', 'server']);
+gulp.task('default', ['copy', 'babel', 'watch', 'server']);
