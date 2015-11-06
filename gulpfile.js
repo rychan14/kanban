@@ -13,7 +13,7 @@ gulp.task('copy', function() {
 });
 
 gulp.task('babel', function() {
-  browserify('src/scripts/kanban.jsx')
+  browserify('src/index.jsx', {extensions: ['.jsx'], debug: true})
     .transform(babelify, {
       presets: ["es2015", "react"]
     })
@@ -21,13 +21,13 @@ gulp.task('babel', function() {
     .on('error', function(error) {
       console.log(error.message);
     })
-    .pipe(source('kanban.js'))
+    .pipe(source('index.js'))
     .pipe(gulp.dest('build'));
 });
 
 gulp.task('watch', function() {
   gulp.watch('src/index.html', ['copy']);
-  gulp.watch('src/scripts/**/*.jsx', ['babel']);
+  gulp.watch(['src/**/*.jsx', 'src/**/*.js'], ['babel']);
   gulp.watch('src/sass/**/*.scss', ['sass']);
 });
 
