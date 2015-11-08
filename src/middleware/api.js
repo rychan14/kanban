@@ -7,32 +7,18 @@ const API_ROOT = 'https://api.github.com/';
 function callApi(endpoint, schema) {
   const fullUrl =  (endpoint.indexOf(API_ROOT) === -1) ? API_ROOT + endpoint : endpoint;
 
-  // return fetch(fullUrl)
-  //   .then(response => {
-  //     return response.json();
-  //   })
-  //   .then(({json, response}) => {
-  //     if(!response.ok) {
-  //       return Promise.reject(json);
-  //     }
-  //
-  //     const camelizedJson = camelizeKeys(json);
-  //
-  //     return normalize(camelizedJson, schema);
-  //   });
+  return fetch(fullUrl)
+  .then(response =>
+    response.json().then(json => ({ json, response }))
+  ).then(({ json, response }) => {
+    if (!response.ok) {
+      return Promise.reject(json);
+    }
 
-    return fetch(fullUrl)
-    .then(response =>
-      response.json().then(json => ({ json, response }))
-    ).then(({ json, response }) => {
-      if (!response.ok) {
-        return Promise.reject(json);
-      }
+    const camelizedJson = camelizeKeys(json);
 
-      const camelizedJson = camelizeKeys(json);
-
-      return normalize(camelizedJson, schema);
-    });
+    return normalize(camelizedJson, schema);
+  });
 }
 
 const repoSchema = new Schema('repos', {
