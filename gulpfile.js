@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var browserify = require('browserify');
 var babelify = require('babelify');
+var uglifyify = require('uglifyify');
 var source = require('vinyl-source-stream');
 var copy = require('gulp-copy');
 var webserver = require('gulp-webserver');
@@ -14,9 +15,8 @@ gulp.task('copy', function() {
 
 gulp.task('babel', function() {
   browserify('src/index.jsx', {extensions: ['.jsx'], debug: true})
-    .transform(babelify, {
-      presets: ['es2015', 'react', 'stage-1', 'stage-0']
-    })
+    .transform(babelify, {presets: ['es2015', 'react', 'stage-1', 'stage-0']})
+    .transform({global: true}, uglifyify)
     .bundle()
     .on('error', function(error) {
       console.log(error.message);

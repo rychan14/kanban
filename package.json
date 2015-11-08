@@ -47,6 +47,7 @@
     "redux": "^3.0.4",
     "redux-devtools": "^2.1.5",
     "redux-thunk": "^1.0.0",
+    "uglifyify": "^3.0.1",
     "vinyl-source-stream": "^1.1.0"
   }
 }
