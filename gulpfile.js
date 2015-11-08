@@ -5,6 +5,7 @@ var uglifyify = require('uglifyify');
 var source = require('vinyl-source-stream');
 var copy = require('gulp-copy');
 var webserver = require('gulp-webserver');
+var minify = require('gulp-minify');
 
 gulp.task('copy', function() {
   gulp.src('src/index.html')
@@ -22,6 +23,12 @@ gulp.task('babel', function() {
       console.log(error.message);
     })
     .pipe(source('index.js'))
+    .pipe(gulp.dest('build'));
+});
+
+gulp.task('compress', function() {
+  gulp.src('build/index.js')
+    .pipe(minify())
     .pipe(gulp.dest('build'));
 });
 
