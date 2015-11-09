@@ -18,7 +18,7 @@ class Board extends React.Component {
       details: 'Test Details'
     };
 
-    this.props.dispatch(issueActions.addIssue(testIssue.title, testIssue.details));
+    this.props.dispatch(issueActions.addIssue(testIssue));
   }
   getRepo() {
     let fullName = 'MrArnoldPalmer/kanban';
