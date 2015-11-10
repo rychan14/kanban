@@ -1,5 +1,4 @@
 import {Schema, arrayOf, normalize} from 'normalizr';
-import request from 'browser-request';
 import {camelizeKeys} from 'humps';
 
 const API_ROOT = 'https://api.github.com/';

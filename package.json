@@ -6,6 +6,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react",
+      "stage-1",
+      "stage-0"
+    ]
+  },
   "eslintConfig": {
     "parser": "babel-eslint",
     "env": {
@@ -25,6 +33,7 @@
   "author": "Mitchell Valine",
   "license": "ISC",
   "devDependencies": {
+    "babel-core": "^6.1.2",
     "babel-eslint": "^4.1.4",
     "babel-polyfill": "^6.0.16",
     "babel-preset-es2015": "^6.0.15",
@@ -37,9 +46,13 @@
     "eslint": "^1.9.0",
     "gulp": "^3.9.0",
     "gulp-copy": "0.0.2",
+    "gulp-inject": "^3.0.0",
     "gulp-minify": "0.0.5",
+    "gulp-mocha": "^2.1.3",
+    "gulp-mocha-phantomjs": "^0.10.1",
     "gulp-webserver": "^0.9.1",
     "humps": "^1.0.0",
+    "mocha": "^2.3.3",
     "normalizr": "^1.4.0",
     "radium": "^0.14.3",
     "react": "^0.14.2",
@@ -48,6 +61,8 @@
     "redux": "^3.0.4",
     "redux-devtools": "^2.1.5",
     "redux-thunk": "^1.0.0",
+    "should": "^7.1.1",
+    "sinon": "^1.17.2",
     "uglifyify": "^3.0.1",
     "vinyl-source-stream": "^1.1.0"
   }
