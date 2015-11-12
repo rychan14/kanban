@@ -6,8 +6,7 @@ var source = require('vinyl-source-stream');
 var copy = require('gulp-copy');
 var webserver = require('gulp-webserver');
 var minify = require('gulp-minify');
-var inject = require('gulp-inject');
-var mochaPhantomJS = require('gulp-mocha-phantomjs');
+var mocha = require('gulp-mocha');
 var babel = require('babel-core/register');
 
 gulp.task('copy', function() {
@@ -50,23 +49,13 @@ gulp.task('server', function() {
     }));
 });
 
-gulp.task('buildTest', function() {
-  browserify('src/test/index.js', {extensions: ['.js'], debug: true})
-    .transform(babelify, {presets: ['es2015', 'react', 'stage-1', 'stage-0']})
-    .bundle()
-    .on('error', function(error) {
-      console.log(error.message);
-    })
-    .pipe(source('test.js'))
-    .pipe(gulp.dest('src/test'));
-});
-
-gulp.task('test', ['buildTest'], function () {
-  gulp.src('test/index.html', {read: false})
-    .pipe(mochaPhantomJS({
-      reporter: 'spec',
-      dump:'test.log'
-    }));
+gulp.task('test', function() {
+  gulp.src('src/test/**/*.js')
+    .pipe(mocha(
+      {compilers:
+        {js: babel}
+      })
+    );
 });
 
 gulp.task('default', ['copy', 'babel', 'watch', 'server']);
