@@ -1,5 +1,6 @@
 import {Schema, arrayOf, normalize} from 'normalizr';
 import {camelizeKeys} from 'humps';
+import request from 'browser-request';
 
 const API_ROOT = 'https://api.github.com/';
 
@@ -74,20 +75,27 @@ export default store => next => action => {
     })));
 };
 
-function callApi(endpoint, schema) {
+export function callApi(endpoint, schema) {
   const fullUrl = (endpoint.indexOf(API_ROOT) === -1) ? API_ROOT + endpoint : endpoint;
-
+  console.log(`Full Url: ${fullUrl}`);
   return new Promise((resolve, reject) => {
-    request(fullUrl, (error, response, body) => {
+    request.get({
+      url: fullUrl,
+      headers: {
+        'User-Agent': 'request'
+      }
+    }, (error, response, body) => {
+      console.log(body);
       if(!error && response.statusCode === 200) {
-        const camelizedJson = camelize(body);
+        const camelizedJson = camelizeKeys(JSON.parse(body));
+
         return resolve(normalize(camelizedJson, schema));
       }
       else if(error) {
         return reject(error);
       }
 
-      return reject(new Error(`Status code: ${reponse.statusCode}`));
+      return reject(new Error(`Status code: ${response.statusCode}`));
     });
   });
 }
