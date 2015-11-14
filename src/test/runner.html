@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Phantom Testing</title>
+</head>
+<body>
+  <script src="../../node_modules/should/should.js"></script>
+  <script src="../../node_modules/mocha/mocha.js"></script>
+  <script>mocha.setup('bdd')</script>
+  <script>
+    describe('true', function () {
+      it('should be true', function () {
+        true.should.equal(true);
+      });
+    });
+  </script>
+  <script>
+    mocha.run();
+  </script>
+
+</body>
+</html>

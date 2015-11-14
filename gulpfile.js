@@ -6,7 +6,7 @@ var source = require('vinyl-source-stream');
 var copy = require('gulp-copy');
 var webserver = require('gulp-webserver');
 var minify = require('gulp-minify');
-var mocha = require('gulp-mocha');
+var mochaPhantomJS = require('gulp-mocha-phantomjs');
 var babel = require('babel-core/register');
 
 gulp.task('copy', function() {
@@ -49,13 +49,10 @@ gulp.task('server', function() {
     }));
 });
 
-gulp.task('test', function() {
-  gulp.src('src/test/**/*.js')
-    .pipe(mocha(
-      {compilers:
-        {js: babel}
-      })
-    );
+gulp.task('test', function () {
+  return gulp
+  .src('src/test/runner.html')
+  .pipe(mochaPhantomJS({reporter: 'spec', dump:'test.log'}));
 });
 
 gulp.task('default', ['copy', 'babel', 'watch', 'server']);
