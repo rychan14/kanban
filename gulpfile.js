@@ -52,7 +52,15 @@ gulp.task('server', function() {
 gulp.task('test', function () {
   return gulp
   .src('src/test/runner.html')
-  .pipe(mochaPhantomJS({reporter: 'spec', dump:'test.log'}));
+  .pipe(mochaPhantomJS({
+    reporter: 'spec',
+    dump:'test.log',
+    mocha: {
+      compilers: {
+        js: babel
+      }
+    }
+  }));
 });
 
 gulp.task('default', ['copy', 'babel', 'watch', 'server']);
