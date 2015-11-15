@@ -18,8 +18,7 @@ gulp.task('copy', function() {
 
 gulp.task('babel', function() {
   browserify('src/index.jsx', {extensions: ['.jsx'], debug: true})
-    .transform(babelify, {presets: ['es2015', 'react', 'stage-1', 'stage-0']})
-    .transform({global: true}, uglifyify)
+    .transform(babelify)
     .bundle()
     .on('error', function(error) {
       console.log(error.message);
@@ -37,7 +36,6 @@ gulp.task('compress', function() {
 gulp.task('watch', function() {
   gulp.watch('src/index.html', ['copy']);
   gulp.watch(['src/**/*.jsx', 'src/**/*.js'], ['babel']);
-  gulp.watch('src/sass/**/*.scss', ['sass']);
 });
 
 gulp.task('server', function() {
@@ -50,8 +48,8 @@ gulp.task('server', function() {
 });
 
 gulp.task('build:test', function() {
-  browserify('src/test/index.js', {extensions: ['.js'], debug: true})
-    .transform(babelify, {presets: ['es2015', 'react', 'stage-1', 'stage-0']})
+  return browserify('src/test/index.js', {extensions: ['.js'], debug: true})
+    .transform(babelify)
     .bundle()
     .on('error', function(error) {
       console.log(error.message);
