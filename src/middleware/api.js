@@ -77,7 +77,7 @@ export default store => next => action => {
 
 export function callApi(endpoint, schema) {
   const fullUrl = (endpoint.indexOf(API_ROOT) === -1) ? API_ROOT + endpoint : endpoint;
-  console.log(`Full Url: ${fullUrl}`);
+
   return new Promise((resolve, reject) => {
     request.get({
       url: fullUrl,
@@ -85,7 +85,6 @@ export function callApi(endpoint, schema) {
         'User-Agent': 'request'
       }
     }, (error, response, body) => {
-      console.log(body);
       if(!error && response.statusCode === 200) {
         const camelizedJson = camelizeKeys(JSON.parse(body));
 

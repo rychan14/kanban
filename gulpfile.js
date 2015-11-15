@@ -49,7 +49,18 @@ gulp.task('server', function() {
     }));
 });
 
-gulp.task('test', function () {
+gulp.task('build:test', function() {
+  browserify('src/test/index.js', {extensions: ['.js'], debug: true})
+    .transform(babelify, {presets: ['es2015', 'react', 'stage-1', 'stage-0']})
+    .bundle()
+    .on('error', function(error) {
+      console.log(error.message);
+    })
+    .pipe(source('test.js'))
+    .pipe(gulp.dest('src/test'));
+});
+
+gulp.task('test', ['build:test'], function () {
   return gulp
   .src('src/test/runner.html')
   .pipe(mochaPhantomJS({
