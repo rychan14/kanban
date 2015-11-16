@@ -26,14 +26,14 @@ export const Schemas = {
 export const CALL_API = Symbol('Call Api');
 
 export default store => next => action => {
-  const callApi = action[CALL_API];
+  const callAPI = action[CALL_API];
 
-  if(typeof callApi === 'undefined') {
+  if(typeof callAPI === 'undefined') {
     return next(action);
   }
 
-  let {endpoint} = callApi;
-  const {schema, types} = callApi;
+  let {endpoint} = callAPI;
+  const {schema, types} = callAPI;
   const [requestType, successType, failureType] = types;
 
   function actionWith(data) {
@@ -67,7 +67,7 @@ export default store => next => action => {
   return callApi(endpoint, schema)
     .then(response => next(actionWith({
       response,
-      type: successtype
+      type: successType
     })))
     .catch(error => next(actionWith({
       type: failureType,
