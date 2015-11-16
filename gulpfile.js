@@ -63,12 +63,7 @@ gulp.task('test', ['build:test'], function () {
   .src('src/test/runner.html')
   .pipe(mochaPhantomJS({
     reporter: 'spec',
-    dump:'test.log',
-    mocha: {
-      compilers: {
-        js: babel
-      }
-    }
+    dump:'test.log'
   }));
 });
 
