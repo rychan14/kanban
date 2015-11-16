@@ -48,6 +48,7 @@
     "gulp-mocha-phantomjs": "^0.10.1",
     "gulp-webserver": "^0.9.1",
     "humps": "^1.0.0",
+    "mocha": "^2.3.4",
     "normalizr": "^1.4.0",
     "phantomjs": "^1.9.18",
     "radium": "^0.14.3",
