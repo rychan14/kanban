@@ -1,13 +1,10 @@
 var gulp = require('gulp');
 var browserify = require('browserify');
 var babelify = require('babelify');
-var uglifyify = require('uglifyify');
 var source = require('vinyl-source-stream');
 var copy = require('gulp-copy');
 var webserver = require('gulp-webserver');
-var minify = require('gulp-minify');
 var mochaPhantomJS = require('gulp-mocha-phantomjs');
-var babel = require('babel-core/register');
 
 gulp.task('copy', function() {
   gulp.src('src/index.html')
@@ -24,12 +21,6 @@ gulp.task('babel', function() {
       console.log(error.message);
     })
     .pipe(source('index.js'))
-    .pipe(gulp.dest('build'));
-});
-
-gulp.task('compress', function() {
-  gulp.src('build/index.js')
-    .pipe(minify())
     .pipe(gulp.dest('build'));
 });
 
@@ -59,11 +50,9 @@ gulp.task('build:test', function() {
 });
 
 gulp.task('test', ['build:test'], function () {
-  return gulp
-  .src('src/test/runner.html')
+  gulp.src('src/test/runner.html')
   .pipe(mochaPhantomJS({
-    reporter: 'spec',
-    dump:'test.log'
+    reporter: 'spec'
   }));
 });
 

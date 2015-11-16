@@ -35,3 +35,7 @@ output
 
 # Vim Files
 *.swp
+
+# Floobits files
+.floo
+.flooignore
