@@ -1,3 +1,5 @@
+import {CALL_API} from '../../middleware/api';
+
 export const RepoObj = {
   "id": 45586328,
   "name": "kanban",
@@ -86,4 +88,16 @@ export const RepoObj = {
   "default_branch": "master",
   "network_count": 1,
   "subscribers_count": 1
+};
+
+export const API_REQUEST = 'API_REQUEST';
+export const API_SUCCESS = 'API_SUCCESS';
+export const API_FAILURE = 'API_FAILURE';
+
+export const ApiAction = {
+  [CALL_API]: {
+    types: [API_REQUEST, API_SUCCESS, API_FAILURE],
+    endpoint: 'api/endpoint',
+    schema: {}
+  }
 };

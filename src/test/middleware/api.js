@@ -3,9 +3,8 @@ import sinon from 'sinon';
 import request from 'browser-request';
 import {applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
-import api, {CALL_API, callApi, Schemas} from '../../middleware/api';
-import {loadRepo, REPO_REQUEST, REPO_SUCCESS, REPO_FAILURE} from '../../actions/repos';
-import {RepoObj} from '../data/api';
+import api, {callApi, Schemas} from '../../middleware/api';
+import {RepoObj, ApiAction, API_REQUEST, API_SUCCESS, API_FAILURE} from '../data/api';
 
 const middlewares = [thunk, api]
 
@@ -89,20 +88,38 @@ describe('API Middleware', () => {
   });
 
   describe('Api Middleware Default Function', () => {
-    let repoAction;
+    // Setup mock store function for testing API middleware function
+    function mockStore(getState, expectedActions, done) {
+      function mockStoreWithoutMiddleware() {
+        return {
+          getState() {
+            return getState
+          },
 
-    before(done => {
-      repoAction = {
-        [CALL_API]: {
-          types: [REPO_REQUEST, REPO_SUCCESS, REPO_FAILURE],
-          endpoint: 'repos/mrarnoldpalmer/kanban',
-          schema: Schemas.REPO
+          dispatch(action) {
+            try {
+              const expectedAction = expectedActions.shift();
+              action.should.equal.expectedAction;
+              if (done && !expectedActions.length) {
+                done();
+              }
+              return action;
+            }
+            catch(error) {
+              done(error);
+            }
+          }
         }
-      };
-      done();
-    });
+      }
 
-    describe('Middleware Function Called With CALL_API Action', () => {
+      const mockStoreWithMiddleware = applyMiddleware(
+        ...middlewares
+      )(mockStoreWithoutMiddleware);
+
+      return mockStoreWithMiddleware();
+    }
+
+    describe('Middleware Function Handles CALL_API Action Dispatch', () => {
       describe('Call Api Successful', () => {
         before(done => {
           sinon.stub(request, 'get')
@@ -115,13 +132,13 @@ describe('API Middleware', () => {
           done();
         });
 
-        it('Should return action REPO_REQUEST and REPO_SUCCESS Actions', done => {
+        it('Should return action API_REQUEST and API_SUCCESS actions', done => {
           const expectedActions = [
-            {type: REPO_REQUEST},
-            {type: REPO_SUCCESS}
+            {type: API_REQUEST},
+            {type: API_SUCCESS}
           ];
           const store = mockStore({}, expectedActions, done)
-          store.dispatch(repoAction);
+          store.dispatch(ApiAction);
         });
       });
 
@@ -137,47 +154,15 @@ describe('API Middleware', () => {
           done();
         });
 
-        it('Should return action REPO_REQUEST and REPO_FAILURE', done => {
+        it('Should return action API_REQUEST and API_FAILURE when callApi returns error', done => {
           const expectedActions = [
-            {type: REPO_REQUEST},
-            {type: REPO_FAILURE}
+            {type: API_REQUEST},
+            {type: API_FAILURE}
           ];
           const store = mockStore({}, expectedActions, done)
-          store.dispatch(repoAction);
+          store.dispatch(ApiAction);
         });
       });
     });
   });
 });
-
-function mockStore(getState, expectedActions, done) {
-  function mockStoreWithoutMiddleware() {
-    return {
-      getState() {
-        return typeof getState === 'function' ?
-          getState() :
-          getState
-      },
-
-      dispatch(action) {
-        const expectedAction = expectedActions.shift()
-
-        try {
-          action.should.equal.expectedAction;
-          if (done && !expectedActions.length) {
-            done()
-          }
-          return action
-        } catch (e) {
-          done(e)
-        }
-      }
-    }
-  }
-
-  const mockStoreWithMiddleware = applyMiddleware(
-    ...middlewares
-  )(mockStoreWithoutMiddleware);
-
-  return mockStoreWithMiddleware();
-}
