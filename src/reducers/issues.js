@@ -1,15 +1,11 @@
-import {ADD_ISSUE} from  '../actions/issues';
+import {ISSUES_REQUEST, ISSUES_SUCCESS, ISSUES_FAILURE} from  '../actions/issues';
 
 export default function issues(state = [], action) {
   switch (action.type) {
-    case ADD_ISSUE:
+    case ISSUES_SUCCESS:
       return [
         ...state,
-        {
-          title: action.title,
-          details: action.details,
-          completed: false
-        }
+        action.response.entities.issues
       ];
     default:
       return state;

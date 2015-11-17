@@ -12,13 +12,10 @@ import * as repoActions from '../actions/repos';
 // })
 
 class Board extends React.Component {
-  addIssue() {
-    let testIssue = {
-      title: 'Test Issue',
-      details: 'Test Details'
-    };
+  getIssues() {
+    let repoName = 'MrArnoldPalmer/kanban';
 
-    this.props.dispatch(issueActions.addIssue(testIssue));
+    this.props.dispatch(issueActions.fetchIssues(repoName));
   }
   getRepo() {
     let fullName = 'MrArnoldPalmer/kanban';
@@ -30,15 +27,13 @@ class Board extends React.Component {
 
     return (
       <div>
-        <button onClick={::this.addIssue}>Add Issue!</button>
+        <button onClick={::this.getIssues}>Get Issues</button>
         <button onClick={::this.getRepo}>Get Repo</button>
         <ul>
           {issues.map(issue => {
             return (
               <li>
-                Issue Title: {issue.title}
-                {issue.details}
-                {issue.completed}
+                Issue: {JSON.stringify(issue)}
               </li>
             );
           })}

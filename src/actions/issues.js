@@ -1,5 +1,16 @@
-export const ADD_ISSUE = 'ADD_ISSUE';
+import {CALL_API, Schemas} from '../middleware/api';
 
-export function addIssue(issue) {
-  return {type: ADD_ISSUE, title: issue.title, details: issue.details};
+export const ISSUES_REQUEST = 'ISSUES_REQUEST';
+export const ISSUES_SUCCESS = 'ISSUES_SUCCESS';
+export const ISSUES_FAILURE = 'ISSUES_FAILURE';
+
+
+export function fetchIssues(repoFullName) {
+  return {
+    [CALL_API]: {
+      types: [ISSUES_REQUEST, ISSUES_SUCCESS, ISSUES_FAILURE],
+      endpoint: `repos/${repoFullName}/issues`,
+      schema: Schemas.ISSUE_ARRAY
+    }
+  };
 }

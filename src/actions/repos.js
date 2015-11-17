@@ -14,11 +14,16 @@ function fetchRepo(fullName) {
   };
 }
 
-export function loadRepo(fullName, requiredFields = []) {
+export function loadRepo(fullName) {
   return (dispatch, getState) => {
-    const repo = getState().repos[fullName];
+    let repo;
+    for(repo of getState().repos) {
+      if(repo.fullName === fullName) {
+        repo = true;
+      }
+    }
 
-    if (repo && requiredFields.every(key => repo.hasOwnProperty(key))) {
+    if (repo) {
       return null;
     }
 
