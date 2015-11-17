@@ -6,7 +6,7 @@ import thunk from 'redux-thunk';
 import api, {callApi, Schemas} from '../../middleware/api';
 import {RepoObj, ApiAction, API_REQUEST, API_SUCCESS, API_FAILURE} from '../data/api';
 
-const middlewares = [thunk, api]
+const middlewares = [thunk, api];
 
 describe('API Middleware', () => {
   describe('Call Api Function', () => {
@@ -93,7 +93,7 @@ describe('API Middleware', () => {
       function mockStoreWithoutMiddleware() {
         return {
           getState() {
-            return getState
+            return getState;
           },
 
           dispatch(action) {
@@ -109,7 +109,7 @@ describe('API Middleware', () => {
               done(error);
             }
           }
-        }
+        };
       }
 
       const mockStoreWithMiddleware = applyMiddleware(
@@ -137,7 +137,7 @@ describe('API Middleware', () => {
             {type: API_REQUEST},
             {type: API_SUCCESS}
           ];
-          const store = mockStore({}, expectedActions, done)
+          const store = mockStore({}, expectedActions, done);
           store.dispatch(ApiAction);
         });
       });
@@ -159,7 +159,7 @@ describe('API Middleware', () => {
             {type: API_REQUEST},
             {type: API_FAILURE}
           ];
-          const store = mockStore({}, expectedActions, done)
+          const store = mockStore({}, expectedActions, done);
           store.dispatch(ApiAction);
         });
       });
