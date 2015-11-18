@@ -13,24 +13,21 @@ import * as repoActions from '../actions/repos';
 
 class Board extends React.Component {
   getIssues() {
-    let repoName = 'MrArnoldPalmer/kanban';
-
+    let repoName = Object.keys(this.props.repo)[0];
     this.props.dispatch(issueActions.fetchIssues(repoName));
   }
   getRepo() {
     let fullName = 'MrArnoldPalmer/kanban';
-
-    this.props.dispatch(repoActions.loadRepo(fullName));
+    this.props.dispatch(repoActions.fetchRepo(fullName));
   }
   render() {
-    let {issues} = this.props;
 
     return (
       <div>
         <button onClick={::this.getIssues}>Get Issues</button>
         <button onClick={::this.getRepo}>Get Repo</button>
         <ul>
-          {issues.map(issue => {
+          {this.props.issues.map(issue => {
             return (
               <li>
                 Issue: {JSON.stringify(issue)}
@@ -45,7 +42,8 @@ class Board extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    issues: state.issues
+    issues: state.issues,
+    repo: state.repo
   };
 }
 

@@ -1,10 +1,10 @@
 import {combineReducers} from 'redux';
 import issues from './issues';
-import repos from './repos';
+import repo from './repos';
 
 const rootReducer = combineReducers({
   issues,
-  repos
+  repo
 });
 
 export default rootReducer;
