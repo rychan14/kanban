@@ -4,16 +4,9 @@ import {CALL_API, Schemas} from '../../middleware/api';
 
 describe('Issue Actions', () => {
   describe('Fetch Issues Action', () => {
-    let types;
-    let repoName;
-    let action;
-
-    before(done => {
-      types = [ISSUES_REQUEST, ISSUES_SUCCESS, ISSUES_FAILURE];
-      repoName = 'reponame/string';
-      action = fetchIssues(repoName);
-      done();
-    });
+    const types = [ISSUES_REQUEST, ISSUES_SUCCESS, ISSUES_FAILURE];
+    const repoName = 'reponame/string';
+    const action = fetchIssues(repoName);
 
     it('Should return action with CALL_API symbol key', done => {
       action[CALL_API].should.not.be.undefined();

@@ -1,4 +1,4 @@
-import {GET_REPO, REPO_REQUEST, REPO_SUCCESS, REPO_FAILURE} from '../actions/repos';
+import {REPO_REQUEST, REPO_SUCCESS, REPO_FAILURE} from '../actions/repos';
 
 export default function repo(state = {}, action) {
   switch(action.type) {
