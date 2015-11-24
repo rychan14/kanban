@@ -11,7 +11,7 @@ import * as repoActions from '../actions/repos';
 //   };
 // })
 
-class Board extends React.Component {
+export class Board extends React.Component {
   getIssues() {
     let repoName = Object.keys(this.props.repo)[0];
     this.props.dispatch(issueActions.fetchIssues(repoName));
