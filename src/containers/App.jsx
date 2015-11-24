@@ -3,11 +3,13 @@ import {connect} from 'react-redux';
 import * as issueActions from '../actions/issues';
 import * as repoActions from '../actions/repos';
 
-// Babel ES7 decorators not working currently...
-// Connect at bottom
+// Babel ES7 decorators not working
+// Currently in development for Babel
+// Connect export at bottom
 // @connect((state) => {
 //   return {
-//     issues: state.issues
+//     issues: state.issues,
+//     repo: state.repo
 //   };
 // })
 
