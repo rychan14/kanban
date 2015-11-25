@@ -3,7 +3,7 @@ import sinon from 'sinon';
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import ShallowTestUtils from  'react-shallow-testutils';
-import {Board} from '../../containers/App.jsx';
+import {App} from '../../containers/App';
 import {CALL_API} from '../../middleware/api';
 
 function setup() {
@@ -14,7 +14,7 @@ function setup() {
   };
 
   const renderer = TestUtils.createRenderer();
-  renderer.render(<Board {...props} />);
+  renderer.render(<App {...props} />);
   const output = renderer.getRenderOutput();
   const instance = ShallowTestUtils.getMountedInstance(renderer);
 
@@ -40,14 +40,6 @@ describe('App Container', () => {
 
     afterEach(done => {
       props.dispatch.reset();
-      done();
-    });
-
-    it('Should call redux dispatch with repo action fetchRepo', done => {
-      props.dispatch.called.should.be.false();
-      instance.getRepo();
-      props.dispatch.calledOnce.should.be.true();
-      props.dispatch.firstCall.args[0][CALL_API].should.exist;
       done();
     });
 

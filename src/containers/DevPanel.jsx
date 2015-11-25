@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {DevTools, DebugPanel, LogMonitor} from 'redux-devtools/lib/react';
 import store from '../store/store';
 
-export default class DevPanel extends React.Component {
+export default class DevPanel extends Component {
   render() {
     return (
       <DebugPanel top right bottom>

@@ -1,7 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
-import * as issueActions from '../actions/issues';
-import * as repoActions from '../actions/repos';
+import {fetchIssues} from '../actions/issues';
+import {fetchRepo} from '../actions/repos';
+import GetRepo from '../components/GetRepo';
 
 // Babel ES7 decorators not working
 // Currently in development for Babel
@@ -13,21 +14,17 @@ import * as repoActions from '../actions/repos';
 //   };
 // })
 
-export class Board extends React.Component {
+export class App extends Component {
   getIssues() {
     let repoName = Object.keys(this.props.repo)[0];
-    this.props.dispatch(issueActions.fetchIssues(repoName));
-  }
-  getRepo() {
-    let fullName = 'MrArnoldPalmer/kanban';
-    this.props.dispatch(repoActions.fetchRepo(fullName));
+    this.props.dispatch(fetchIssues(repoName));
   }
   render() {
-
+    const {dispatch} = this.props;
     return (
       <div>
         <button onClick={::this.getIssues}>Get Issues</button>
-        <button onClick={::this.getRepo}>Get Repo</button>
+        <GetRepo onGetClick={name => dispatch(fetchRepo(name))} />
         <ul>
           {this.props.issues.map(issue => {
             return (
@@ -49,4 +46,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Board);
+export default connect(mapStateToProps)(App);
