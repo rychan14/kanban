@@ -87,7 +87,6 @@ describe('API Middleware', () => {
 
   describe('Api Middleware Default Function', () => {
     const middlewares = [thunk, api];
-    // Setup mock store function for testing API middleware function
     function mockStore(getState, expectedActions, done) {
       function mockStoreWithoutMiddleware() {
         return {
