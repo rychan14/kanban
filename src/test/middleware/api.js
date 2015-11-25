@@ -6,8 +6,6 @@ import thunk from 'redux-thunk';
 import api, {callApi, Schemas} from '../../middleware/api';
 import {RepoObj, ApiAction, API_REQUEST, API_SUCCESS, API_FAILURE} from '../data/api';
 
-const middlewares = [thunk, api];
-
 describe('API Middleware', () => {
   describe('Call Api Function', () => {
     describe('Call Api Success', () => {
@@ -88,6 +86,7 @@ describe('API Middleware', () => {
   });
 
   describe('Api Middleware Default Function', () => {
+    const middlewares = [thunk, api];
     // Setup mock store function for testing API middleware function
     function mockStore(getState, expectedActions, done) {
       function mockStoreWithoutMiddleware() {

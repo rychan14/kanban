@@ -39,7 +39,7 @@ gulp.task('server', function() {
 });
 
 gulp.task('build:test', function() {
-  return browserify('src/test/index.js', {extensions: ['.jsx'], debug: true})
+  return browserify('src/test/index.js', {extensions: ['.jsx', 'js'], debug: true})
     .transform(babelify)
     .bundle()
     .on('error', function(error) {
