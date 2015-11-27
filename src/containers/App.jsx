@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {fetchIssues} from '../actions/issues';
 import {fetchRepo} from '../actions/repos';
 import GetRepo from '../components/GetRepo';
+import Board from '../components/Board';
 
 // Babel ES7 decorators not working
 // Currently in development for Babel
@@ -23,17 +24,8 @@ export class App extends Component {
     const {dispatch} = this.props;
     return (
       <div>
-        <button onClick={::this.getIssues}>Get Issues</button>
         <GetRepo onGetClick={name => dispatch(fetchRepo(name))} />
-        <ul>
-          {this.props.issues.map(issue => {
-            return (
-              <li>
-                Issue: {JSON.stringify(issue)}
-              </li>
-            );
-          })}
-        </ul>
+        <Board issues={this.props.issues} />
       </div>
     );
   }
