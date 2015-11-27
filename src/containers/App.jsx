@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
+import Radium from 'radium';
 import {fetchIssues} from '../actions/issues';
 import {fetchRepo} from '../actions/repos';
 import GetRepo from '../components/GetRepo';
@@ -23,13 +24,19 @@ export class App extends Component {
   render() {
     const {dispatch} = this.props;
     return (
-      <div>
+      <div style={styles}>
         <GetRepo onGetClick={name => dispatch(fetchRepo(name))} />
         <Board issues={this.props.issues} />
       </div>
     );
   }
 }
+
+const styles = {
+  display: 'flex'
+};
+
+App = Radium(App);
 
 function mapStateToProps(state) {
   return {
