@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import Radium from 'radium';
 
 export default class Issue extends Component {
@@ -15,12 +15,15 @@ export default class Issue extends Component {
   }
 }
 
+Issue.propTypes = {
+  issue: PropTypes.object.isRequired
+};
+
 const styles = {
   base: {
     borderRadius: 4,
     boxShadow: '2px 2px 2px 2px #D8D8D8',
-    width: '300px',
-    height: '100px'
   }
 };
+
 Issue = Radium(Issue);

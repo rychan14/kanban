@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import Radium from 'radium';
 
 export default class GetRepo extends Component {
   handleClick(e) {
@@ -20,4 +21,10 @@ export default class GetRepo extends Component {
 
 GetRepo.propTypes =  {
   onGetClick: PropTypes.func.isRequired
+};
+
+const styles = {
+  container: {
+    display: 'flex'
+  }
 };

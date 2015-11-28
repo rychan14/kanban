@@ -33,7 +33,8 @@ export class App extends Component {
 }
 
 const styles = {
-  display: 'flex'
+  display: 'flex',
+  flexDirection: 'column'
 };
 
 App = Radium(App);
