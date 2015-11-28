@@ -4,8 +4,7 @@ import Issue from './Issue';
 export default class Board extends Component {
   render() {
     return (
-      <div>
-        Board Component:
+      <div style={styles}>
         {this.props.issues.map(issue => {
           return(
             <Issue key={Object.keys(issue)[0]} issue={issue} />
@@ -15,3 +14,10 @@ export default class Board extends Component {
     );
   }
 }
+
+const styles = {
+  base: {
+    display: 'flex',
+    flexDirection: 'column'
+  }
+};
