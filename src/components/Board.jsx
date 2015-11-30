@@ -1,16 +1,13 @@
 import React, {Component, PropTypes} from 'react';
 import Radium from 'radium';
 import Issue from './Issue';
+import Lane from './Lane';
 
 export default class Board extends Component {
   render() {
     return (
       <div style={styles.base}>
-        {this.props.issues.map(issue => {
-          return(
-            <Issue key={Object.keys(issue)[0]} issue={issue} />
-          );
-        })}
+        <Lane issues={this.props.issues} />
       </div>
     );
   }

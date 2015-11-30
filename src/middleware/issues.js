@@ -8,12 +8,13 @@ export default store => next => action => {
     next(action);
   }
 
-  if(action.type === ISSUES_SUCCESS) {
+  else if(action.type === ISSUES_SUCCESS) {
     const response = Object.keys(action.response.entities.issues).map(key => {
       let issue = {};
       issue[key] = action.response.entities.issues[key];
       return issue;
     });
+
     next({
       response,
       type: ISSUES_SUCCESS
