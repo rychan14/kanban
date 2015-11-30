@@ -80,10 +80,7 @@ export function callApi(endpoint, schema) {
 
   return new Promise((resolve, reject) => {
     request.get({
-      url: fullUrl,
-      headers: {
-        'User-Agent': 'request'
-      }
+      url: fullUrl
     }, (error, response, body) => {
       if(!error && response.statusCode === 200) {
         const camelizedJson = camelizeKeys(JSON.parse(body));
