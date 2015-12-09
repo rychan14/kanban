@@ -3,6 +3,7 @@ import {applyMiddleware} from 'redux';
 import issues from '../../middleware/issues';
 import {fetchIssues} from '../../actions/issues';
 import {REPO_SUCCESS, REPO_FAILURE} from '../../actions/repos';
+import {ISSUES_SUCCESS} from '../../actions/issues';
 
 describe('Issues Middleware', () => {
   const middlewares = [issues];
@@ -16,7 +17,14 @@ describe('Issues Middleware', () => {
         dispatch(action) {
           try {
             const expectedAction = expectedActions.shift();
-            action.should.equal.expectedAction;
+            const expectedResponse  = expectedAction.response;
+            const response = action.response;
+            action.should.deepEqual.expectedAction;
+            if(response) {
+              console.log(response);
+              console.log(expectedResponse);
+              response.should.equal.expectedResponse;
+            }
             if (done && !expectedActions.length) {
               done();
             }
@@ -55,6 +63,28 @@ describe('Issues Middleware', () => {
     });
   });
 
+  describe('ISSUES_SUCCESS Action', () => {
+    it('Should parse response data to keep reducer pure', done => {
+      const issueSuccess = {
+        type: ISSUES_SUCCESS,
+        response: {
+          entities: {
+            issues: [
+              {1: 'issue1'},
+              {2: 'issue2'}
+            ]
+          }
+        }
+      };
+
+      const expectedActions = [
+        issueSuccess
+      ];
+      const store = mockStore({}, expectedActions, done);
+      store.dispatch(issueSuccess);
+    });
+  });
+
   describe('Other Actions', () => {
     it('Should not dispatch anymore actions', done => {
       const repoFailure = {
@@ -62,7 +92,7 @@ describe('Issues Middleware', () => {
       };
 
       const expectedActions = [
-        {type: REPO_FAILURE, response: {result: 'name'}}
+        repoFailure
       ];
 
       const store = mockStore({}, expectedActions, done);
